@@ -1,0 +1,47 @@
+CSP Sistemas Digitais — Instalador local (Windows)
+====================================================
+
+COMO INSTALAR
+1. Dê dois cliques em "Instalar.bat".
+2. Aguarde: ele confere se o Node.js está instalado, baixa as
+   dependências do projeto e gera a versão de produção do site.
+3. Ao final, um atalho "CSP Sistemas Digitais" é criado na Área de
+   Trabalho e no Menu Iniciar.
+
+Pré-requisito: Node.js instalado (https://nodejs.org/, versão LTS).
+O instalador avisa se ele não for encontrado.
+
+COMO USAR NO DIA A DIA
+- Dê dois cliques no atalho "CSP Sistemas Digitais" (Área de
+  Trabalho ou Menu Iniciar).
+- O site abre sozinho no seu navegador padrão.
+- Para encerrar, feche a janela preta que abriu junto (é o servidor
+  local rodando).
+
+PAINEL DO ADMINISTRADOR
+- Acesse a aba "Administração" no rodapé do site, ou vá direto em
+  http://localhost:3000/admin
+- Senha padrão: csp@admin2026
+- Para trocar a senha, edite o arquivo ".env" na pasta do projeto
+  (linha ADMIN_PASSWORD=...) e reinicie o site.
+
+INSTALAR COMO APP (PWA)
+- O site também é um PWA (Progressive Web App): com o site aberto no
+  Chrome/Edge, clique no ícone de instalação na barra de endereço
+  (ou no banner "Instalar aplicativo" que aparece na página) para
+  adicioná-lo como um app com ícone próprio, sem precisar do
+  instalador do Windows. Funciona em celular também ("Adicionar à
+  tela inicial").
+- Isso só funciona onde o site estiver acessível: localhost (neste
+  computador) ou um endereço público com HTTPS, caso você publique o
+  site em algum serviço de hospedagem para compartilhar o link com
+  outras pessoas.
+
+ONDE FICAM OS DADOS
+- Aplicativos cadastrados, imagens enviadas e o contador de visitas
+  ficam salvos na pasta "data\" do projeto — não é preciso internet
+  nem banco de dados externo.
+
+DESINSTALAR
+- "Desinstalar.bat" remove apenas os atalhos. Os arquivos do site e
+  os dados cadastrados continuam no computador.

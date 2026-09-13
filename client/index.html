@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="theme-color" content="#07161d" />
+    <meta name="description" content="Conheça nossos aplicativos e soluções digitais. Acesse, teste e descubra ferramentas desenvolvidas para tornar seu negócio mais inteligente, produtivo e eficiente." />
+
+    <!-- Compartilhamento em redes sociais (WhatsApp, Facebook, LinkedIn, X...) -->
+    <meta property="og:title" content="CSP Sistemas Digitais | Soluções Inteligentes para Negócios" />
+    <meta property="og:description" content="Conheça, acesse e teste gratuitamente os aplicativos da CSP Sistemas Digitais." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/icons/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="CSP Sistemas Digitais" />
+    <meta name="twitter:description" content="Conheça, acesse e teste gratuitamente os aplicativos da CSP Sistemas Digitais." />
+    <meta name="twitter:image" content="/icons/og-image.png" />
+
+    <!-- Progressive Web App: instalável com ícone próprio -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="CSP" />
+
+    <title>CSP Sistemas Digitais | Soluções Inteligentes para Negócios</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script type="module">
+      // Analytics is optional: only load it when a real endpoint is configured
+      // via VITE_ANALYTICS_ENDPOINT / VITE_ANALYTICS_WEBSITE_ID, so local/offline
+      // usage does not fire a request to a literal, unreplaced placeholder URL.
+      const endpoint = import.meta.env.VITE_ANALYTICS_ENDPOINT;
+      const websiteId = import.meta.env.VITE_ANALYTICS_WEBSITE_ID;
+      if (endpoint && websiteId) {
+        const script = document.createElement("script");
+        script.defer = true;
+        script.src = `${endpoint}/umami`;
+        script.dataset.websiteId = websiteId;
+        document.body.appendChild(script);
+      }
+    </script>
+  </body>
+</html>
