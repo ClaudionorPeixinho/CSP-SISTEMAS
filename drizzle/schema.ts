@@ -42,9 +42,18 @@ export const contactMessages = mysqlTable("contact_messages", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+export const settings = mysqlTable("settings", {
+  id: int("id").autoincrement().primaryKey(),
+  whatsappNumber: varchar("whatsappNumber", { length: 40 }),
+  contactEmail: varchar("contactEmail", { length: 320 }),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 export type Application = typeof applications.$inferSelect;
 export type InsertApplication = typeof applications.$inferInsert;
 export type ContactMessage = typeof contactMessages.$inferSelect;
 export type InsertContactMessage = typeof contactMessages.$inferInsert;
+export type Settings = typeof settings.$inferSelect;
+export type InsertSettings = typeof settings.$inferInsert;

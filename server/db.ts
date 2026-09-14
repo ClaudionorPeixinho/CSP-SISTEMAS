@@ -1,15 +1,17 @@
 import { asc, desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { applications, contactMessages, InsertApplication, InsertContactMessage, InsertUser, users } from "../drizzle/schema";
+import { applications, contactMessages, InsertApplication, InsertContactMessage, InsertSettings, InsertUser, settings, users } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 import {
   localCreateApplication,
   localCreateContactMessage,
   localDeleteApplication,
   localGetApplicationBySlug,
+  localGetSettings,
   localListAllApplications,
   localListApplications,
   localUpdateApplication,
+  localUpdateSettings,
 } from "./localStore";
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -192,4 +194,18 @@ export async function createContactMessage(input: InsertContactMessage) {
   const db = await getDb();
   if (!db) return localCreateContactMessage(input);
   return db.insert(contactMessages).values(input);
+}
+
+export async function getSettings() {
+  const db = await getDb();
+  if (!db) return localGetSettings();
+  const result = await db.select().from(settings).where(eq(settings.id, 1)).limit(1);
+  return result[0] ?? { id: 1, whatsappNumber: null, contactEmail: null, updatedAt: new Date() };
+}
+
+export async function updateSettings(input: Partial<InsertSettings>) {
+  const db = await getDb();
+  if (!db) return localUpdateSettings(input);
+  await db.insert(settings).values({ id: 1, ...input }).onDuplicateKeyUpdate({ set: { ...input, updatedAt: new Date() } });
+  return getSettings();
 }

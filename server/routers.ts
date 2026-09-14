@@ -9,7 +9,7 @@ import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_
 import { localStorePut } from "./localUpload";
 import { localGetVisitCount, localRecordVisit } from "./localStore";
 import { storagePut } from "./storage";
-import { createApplication, createContactMessage, deleteApplication, getApplicationBySlug, listAllApplications, listApplications, updateApplication } from "./db";
+import { createApplication, createContactMessage, deleteApplication, getApplicationBySlug, getSettings, listAllApplications, listApplications, updateApplication, updateSettings } from "./db";
 
 const applicationFields = {
   slug: z.string().min(2).max(160).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
@@ -94,6 +94,16 @@ export const appRouter = router({
       phone: z.string().max(40).optional(),
       message: z.string().min(10).max(3000),
     })).mutation(({ input }) => createContactMessage(input)),
+  }),
+  settings: router({
+    get: adminProcedure.query(() => getSettings()),
+    update: adminProcedure.input(z.object({
+      whatsappNumber: z.union([z.string().trim().min(8).max(40), z.literal("")]).optional(),
+      contactEmail: z.union([z.string().trim().email().max(320), z.literal("")]).optional(),
+    })).mutation(({ input }) => updateSettings({
+      ...(input.whatsappNumber !== undefined && { whatsappNumber: input.whatsappNumber || null }),
+      ...(input.contactEmail !== undefined && { contactEmail: input.contactEmail || null }),
+    })),
   }),
 });
 

@@ -2,12 +2,13 @@
 // admin panel works fully (create/edit/delete) without any cloud database.
 import fs from "fs";
 import path from "path";
-import type { Application, ContactMessage, InsertApplication, InsertContactMessage } from "../drizzle/schema";
+import type { Application, ContactMessage, InsertApplication, InsertContactMessage, InsertSettings, Settings } from "../drizzle/schema";
 
 const DATA_DIR = path.resolve(import.meta.dirname, "..", "data");
 const APPLICATIONS_FILE = path.join(DATA_DIR, "applications.json");
 const CONTACT_FILE = path.join(DATA_DIR, "contact-messages.json");
 const VISITS_FILE = path.join(DATA_DIR, "visits.json");
+const SETTINGS_FILE = path.join(DATA_DIR, "settings.json");
 
 function ensureDataDir() {
   if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -235,4 +236,17 @@ export function localRecordVisit(): number {
 
 export function localGetVisitCount(): number {
   return readJson<{ totalVisits: number }>(VISITS_FILE, { totalVisits: 0 }).totalVisits;
+}
+
+const defaultSettings: Settings = { id: 1, whatsappNumber: null, contactEmail: null, updatedAt: new Date() };
+
+export function localGetSettings(): Settings {
+  return readJson<Settings>(SETTINGS_FILE, defaultSettings);
+}
+
+export function localUpdateSettings(input: Partial<InsertSettings>): Settings {
+  const current = localGetSettings();
+  const updated: Settings = { ...current, ...input, id: 1, updatedAt: new Date() };
+  writeJson(SETTINGS_FILE, updated);
+  return updated;
 }
